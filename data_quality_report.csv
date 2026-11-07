@@ -1,0 +1,8 @@
+rule,records_flagged,pct_of_rows,severity,why_it_matters
+duplicate_id,6,2.91,blocks,"totals are summed, so a repeated row adds real tonnes"
+missing_gfa,12,5.83,blocks,floor area is the denominator of every kgCO2e/m2 figure
+impossible_gfa,8,3.88,blocks,zero floor area cannot be benchmarked
+unit_error,13,6.31,distorts,"inflates floor area 10.8x, so intensity is understated 10.8x"
+missing_year,9,4.37,blocks,no vintage means no age-based analysis
+invalid_epc,4,1.94,distorts,splits one EPC category into several in any grouping
+epc_demand_conflict,7,3.4,flags,label and meter disagree; needs a human to decide which is right
