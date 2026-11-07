@@ -11,8 +11,7 @@ This repository takes a 200-building register, runs seven checks on it, and
 measures what happens to the headline climate number if nobody does.
 
 It is deliberately small: 206 rows, four short scripts, no dependencies beyond
-`pandas`, `numpy` and `matplotlib`. It runs in about a second. Every line can be
-read by a domain expert who has never written Python - which is the point.
+`pandas`, `numpy` and `matplotlib`.
 
 ---
 
