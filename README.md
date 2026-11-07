@@ -3,7 +3,7 @@
 **A small, readable data-quality kit for whole life carbon benchmarking.**
 
 A benchmark is a ratio: kgCO₂e per m². The carbon side gets all the attention.
-The m² side usually gets none — and it is the side that comes from a national
+The m² side usually gets none - and it is the side that comes from a national
 register, filled in by hundreds of people, exported from systems that disagree
 with each other.
 
@@ -12,7 +12,7 @@ measures what happens to the headline climate number if nobody does.
 
 It is deliberately small: 206 rows, four short scripts, no dependencies beyond
 `pandas`, `numpy` and `matplotlib`. It runs in about a second. Every line can be
-read by a domain expert who has never written Python — which is the point.
+read by a domain expert who has never written Python - which is the point.
 
 ---
 
@@ -23,8 +23,8 @@ read by a domain expert who has never written Python — which is the point.
 | Stock floor area | 586,806 m² | 389,581 m² | **+50.6%** |
 | Stock energy intensity | 161.1 kWh/m²/yr | 145.0 kWh/m²/yr | **+11.1%** |
 
-An analyst who remembers to remove duplicate rows — the one defect everybody
-remembers — and stops there **overstates the floor area of this stock by half**.
+An analyst who remembers to remove duplicate rows - the one defect everybody
+remembers - and stops there **overstates the floor area of this stock by half**.
 
 That matters because every whole life carbon total scales linearly with floor
 area. A 50% area error is a 50% error in total tonnes of CO₂e. The carbon
@@ -45,7 +45,7 @@ that actually occur in national registers:
 | Check | Caught | Why it matters |
 |---|---|---|
 | Floor area in ft² | 13 | Inflates area 10.8×, so intensity is understated 10.8× |
-| Floor area missing | 12 | No — or a wrong — denominator; the record cannot be benchmarked |
+| Floor area missing | 12 | No - or a wrong - denominator; the record cannot be benchmarked |
 | Year built missing | 9 | Removes the building from any vintage analysis |
 | Floor area zero | 8 | An unknown treated as a number |
 | EPC contradicts the meter | 7 | The label and the metered demand cannot both be right |
@@ -57,7 +57,7 @@ that actually occur in national registers:
 ## The seven checks, and why each one is defensible
 
 The rule for this repository: **a check must have a reason rooted in building
-physics or in how registers get filled in — never an arbitrary statistical
+physics or in how registers get filled in - never an arbitrary statistical
 threshold.**
 
 That distinction is the whole argument.
@@ -71,13 +71,13 @@ medium-sized buildings recorded in square feet.
 The alternative uses a fact about buildings:
 
 > Floor area per storey has a ceiling by building type. A single dwelling
-> reporting 1,200 m² on one storey is not a mansion — it is a square-foot
+> reporting 1,200 m² on one storey is not a mansion - it is a square-foot
 > figure in a square-metre column.
 
 If dividing by 10.7639 brings the record back inside the ceiling, it was in
 square feet. If it does not, the building is genuinely enormous and is left
 alone. **On this register the check flagged 13 records and all 13 were confirmed
-square feet — precision 1.000, and zero good records wrongly deleted.**
+square feet - precision 1.000, and zero good records wrongly deleted.**
 
 Why precision matters more than recall here: a false positive silently deletes a
 real building, and nobody re-checks a record that has been quietly removed. A
@@ -86,7 +86,7 @@ miss at least leaves a visible outlier.
 ### 2 · The cross-field check needs domain knowledge
 
 An EPC band implies a range of metered demand. A building certified **A** that
-uses 350 kWh/m²/yr is not a data-entry typo you can catch with a regex — it is a
+uses 350 kWh/m²/yr is not a data-entry typo you can catch with a regex - it is a
 contradiction between two fields, and you can only see it if you know what a
 certificate means.
 
@@ -103,7 +103,7 @@ preserves the honesty and hands the decision to imputation.
 
 ### 4 · Duplicate keys keep the most complete record
 
-`drop_duplicates(keep="first")` keeps whichever row happened to sort first —
+`drop_duplicates(keep="first")` keeps whichever row happened to sort first -
 exactly as likely to be the row with the blank floor area. We rank by how many
 fields are filled and keep the best one.
 
@@ -127,7 +127,7 @@ flagged in a column, so any downstream result can be re-run without them.
 The repair runs in a fixed sequence: de-duplicate → normalise labels → convert
 units → void impossible → impute.
 
-Get that order wrong and **nothing crashes** — you just get quietly wrong
+Get that order wrong and **nothing crashes** - you just get quietly wrong
 answers. Imputing before voiding zeroes imputes from placeholders. Converting
 units after computing a median uses the corrupt values in the reference. This is
 the real difficulty of data cleaning, and it does not announce itself.
@@ -138,7 +138,7 @@ the real difficulty of data cleaning, and it does not announce itself.
 
 ![Signal recovered](figures/fig3_signal_recovered.png)
 
-The register was built so that **EPC band predicts metered demand** — that is
+The register was built so that **EPC band predicts metered demand** - that is
 what a certificate is supposed to mean. After repair, median demand rises
 monotonically across all seven bands, from 58 to 320 kWh/m²/yr.
 
@@ -186,8 +186,8 @@ wlc-data-check/
 
 ## What this does not do
 
-- **No carbon is calculated.** This is the denominator only. The numerator —
-  EN 15978 A1–A5 and B6 — is a separate piece of work.
+- **No carbon is calculated.** This is the denominator only. The numerator -
+  EN 15978 A1–A5 and B6 - is a separate piece of work.
 - **The register is synthetic.** 200 buildings from Austria, Hungary and Italy,
   built with a known signal and known defects so the checks can be scored. Real
   registers are worse in ways nobody has catalogued: geometry mismatches,
@@ -204,7 +204,7 @@ wlc-data-check/
 ## Why this exists
 
 The gap between a national building register and a trustworthy carbon benchmark
-is not a modelling problem — the EN 15978 arithmetic is well understood. It is a
+is not a modelling problem - the EN 15978 arithmetic is well understood. It is a
 data problem: knowing which records you can defend, which you must exclude, and
 what the exclusion costs you.
 
