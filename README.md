@@ -131,5 +131,3 @@ figures/                  the three PNGs
 - Run the same checks on a real open EPC dataset.
 - Add checks that compare footprint with geometry data.
 - Detect duplicates that have different IDs.
-
-MIT licensed.
